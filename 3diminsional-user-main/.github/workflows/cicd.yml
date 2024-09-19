@@ -1,0 +1,76 @@
+name: Deploy testing_github_action (GitHub Repository Name)
+
+on: 
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+     
+
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker Frontend Image
+        run: docker build --no-cache -t dilus1322747/client ./client
+
+      - name: Build Docker Backend Image
+        run: docker build --no-cache -t dilus1322747/server ./server 
+
+      - name: Push Docker Backend Image
+        run: docker push dilus1322747/client:latest
+
+      - name: Push Docker Frontend Image
+        run: docker push dilus1322747/server:latest
+ 
+  
+  secruity:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies (Frontend)
+        run: |
+          cd client
+          npm install
+
+      - name: Install Dependencies (Backend)
+        run: |
+          cd server
+          npm install
+
+      - name: Run npm audit (Frontend)
+        run: |
+          cd client
+          npm audit --audit-level=moderate
+
+      - name: Run npm audit (Backend)
+        run: |
+          cd server
+          npm audit --audit-level=moderate   
+  
+  
+  
+  
+  deploy:
+    needs: build
+    runs-on: self-hosted 
+    steps:
+     - name: Pull Images and Run Containers with Docker Compose
+       run: |
+        cd ~/aws_docker
+        sudo docker compose down
+        sudo docker rmi dilus1322747/server:latest dilus1322747/client:latest  nginx:latest
+        sudo docker compose up -d
+  
+        
+
+
+    

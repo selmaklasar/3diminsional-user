@@ -1,0 +1,15 @@
+{
+  "devDependencies": {
+    "husky": "^9.0.11",
+    "prettier": "^3.2.5",
+    "pretty-quick": "^4.0.0"
+  },
+  "scripts": {
+    "prepare": "husky",
+    "pre-commit": "pretty-quick --staged"
+  },
+  "dependencies": {
+    "@fortawesome/react-fontawesome": "^0.2.2",
+    "mime-types": "^2.1.35"
+  }
+}

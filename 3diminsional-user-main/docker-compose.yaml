@@ -1,0 +1,24 @@
+services:
+  server:
+    build: ./server
+   
+    ports:
+      - "3000:3000"
+
+  client:
+    build: ./client
+    
+    ports:
+      - "8080:8080"
+
+  nginx:
+    build: ./nginx
+    image: dilus1322747/nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/new.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - client
+      - server
+

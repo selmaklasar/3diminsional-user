@@ -1,0 +1,20 @@
+.modernbutton {
+  border-radius: 8px; /* Slight curve for the corners */
+  padding: 10px 20px;
+  font-size: 18px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  position: absolute;
+  right: 10px;
+  top: 110px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #3f3f3f; /* Equivalent to bg-neutral-500 */
+  color: #d4d4d4; /* Equivalent to text-zinc-200 */
+}
+
+.modernbutton:hover {
+  background-color: #525252; /* Equivalent to hover:bg-neutral-600 */
+  color: #d4d4d4; /* Equivalent to hover:shadow-zinc-300 */
+  box-shadow: 0px 4px 8px rgba(212, 212, 212, 0.4); /* Equivalent to hover:shadow-md hover:shadow-zinc-300 */
+}
